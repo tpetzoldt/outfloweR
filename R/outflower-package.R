@@ -7,7 +7,7 @@
 #' water either from the bottom outlet or the surface layer (the epilimnion).
 #' It uses a simple mass-balance approach and provides a shiny-app.
 #'
-#' @name growthrates-package
+#' @name outfloweR-package
 #' @aliases outfloweR outfloweR-package
 #' @docType package
 #' @author Thomas Petzoldt, Lukas Gunzelmann

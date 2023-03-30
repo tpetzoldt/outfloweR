@@ -22,7 +22,7 @@ vol2level(vol, zmax, amax)
 \item{vol}{vector of given volume(s)}
 }
 \description{
-The functions calculate area resp. volume of a lake with an ellipsoidic
+The functions calculate area resp. volume of a lake with a conical
 depth profile.
 }
 \examples{
