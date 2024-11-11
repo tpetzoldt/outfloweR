@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: outfloweR
 Type: Package
 Title: Simulate Reservoir Mass Balance
-Version: 0.2-1
-Date: 2023-03-30
+Version: 0.2-2
+Date: 2024-11-11
 Authors@R: c(person("Thomas","Petzoldt", role = c("aut", "cre"),
                      email = "thomas.petzoldt@tu-dresden.de",
                      comment = c(ORCID = "0000-0002-4951-6468")),
