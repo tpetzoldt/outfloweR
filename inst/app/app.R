@@ -7,27 +7,50 @@ library(tidyr)
 library(ggpubr)
 library(outfloweR)
 library(shinyjs, mask.ok=TRUE)
+library(purrr)
 
-# Define UI for application that draws a histogram
+library(shiny.i18n)
+i18n <- Translator$new(translation_json_path = "./lang_data/translation.json")
+i18n$set_translation_language("en")
+
+## helper functions
+translate_choices <- function(choices, keys) {
+  set_names(choices,  map_chr(keys, i18n$t))
+}
+
+
+
+# Define UI for application
 ui <- fluidPage(
 
 
   uiOutput("title"),
   sidebarLayout( uiOutput("sidebar"),
-                 uiOutput("Main"))
+                 uiOutput("Main")),
 
-
+  ## tp: the following is not used yet
+  shiny.i18n::usei18n(i18n),
+  tags$div(
+    style='float: right;color: white; font-family: OpenSans;',
+    selectInput(
+      inputId='selected_language',
+      label=i18n$t("Sprache"),
+      choices = c("de", "en"),
+      selected = i18n$get_key_translation()
+    )
+  )
 )
 
 server <- function(input, output,session) {
 
 
 observe({
+
   query <- parseQueryString(session$clientData$url_search)
   if (!is.null(query[['ui']]))  {
     if (query[['ui']] == "plots") {
       output$title <- renderUI(
-        titlePanel("Talsperren-Volumenbilanz in 2 Schichten"))
+        titlePanel(i18n$t("Talsperren-Volumenbilanz in 2 Schichten")))
       output$sidebar <- renderUI(sidebarPanel())
       output$Main <- renderUI(mainPanel(
         div(id = "volumes", plotOutput("plot_model")),
@@ -35,48 +58,67 @@ observe({
     }
     if (query[['ui']] == "volume") {
       output$title <- renderUI(
-        titlePanel("Talsperren-Massenbilanz in 2 Schichten"))
+        titlePanel(i18n$t("Talsperren-Volumenbilanz in 2 Schichten")))
       output$sidebar <- renderUI()
       output$Main <- renderUI(mainPanel(
         div(id = "volumes", plotOutput("plot_model"))))
     }
     if (query[['ui']] == "flows") {
       output$title <- renderUI(
-        titlePanel("Talsperren-Massenbilanz in 2 Schichten"))
+        titlePanel(i18n$t("Talsperren-Volumenbilanz in 2 Schichten")))
       output$sidebar <- renderUI()
       output$Main <- renderUI(mainPanel(
         div(id = "flows", plotOutput("plot_flows"))))
     }
   }
   else {
+    i18n$set_translation_language(input$selected_language)
     output$title <- renderUI(
-      titlePanel("Talsperren-Massenbilanz in 2 Schichten"),
+      titlePanel(i18n$t("Talsperren-Volumenbilanz in 2 Schichten")),
 
     )
 
-    output$sidebar <- renderUI(sidebarPanel(
-      selectInput("discharge", "Auswahl Zu- und Abflussmenge",
-                  choices = list("Normales Jahr"  = "discharge_normal",
-                                 "Nasses Jahr"    = "discharge_wet",
-                                 "Trockenes Jahr" = "discharge_dry",
-                                 "Sommerhochwasser (theoretisches Szenario)" = "discharge_summerflood"),
+    translated_choices <- translate_choices(
+      choices = c(
+        "discharge_normal",
+        "discharge_wet",
+        "discharge_dry",
+        "discharge_summerflood"
       ),
-      selectInput("withdrawal", "Auswahl Managementstrategie",
-                  choices = list("Standard" = "standard",
-                                 "Zufluss ins Hypolimnion" = "cold_inflow",
-                                 "Wildbettabgabe aus dem Epilimnion" = "wb_top")),
-      sliderInput("volume", "Auswahl Startvolumen", min = 10, max = 100, value = 60),
-      sliderInput("begin", "Beginn der Schichtung", min = 60, max = 121, value = 91),
-      sliderInput("end", "spätestes Schichtungsende", min = 258, max = 335 , value = 305 ),
-      checkboxInput("cumulative", "Zu- und Abfluss als Summen", FALSE),
-      radioButtons("vol_level", "Plot als:",
-                   choices = c("Volumen", "Stauspiegel"), selected = "Volumen"),
+      keys = c(
+        "Normales Jahr",
+        "Nasses Jahr",
+        "Trockenes Jahr",
+        "Sommerhochwasser (theoretisches Szenario)"
+      )
+    )
+
+    output$sidebar <- renderUI(sidebarPanel(
+      selectInput(
+        "discharge",
+        i18n$t("Auswahl Zu- und Abflussmenge"),
+        choices = translated_choices
+      ),
+      selectInput(
+        "withdrawal",
+        i18n$t("Auswahl Managementstrategie"),
+        choices = translate_choices(
+          c("standard", "cold_inflow", "wb_top"),
+          c("Standard", "Zufluss ins Hypolimnion", "Wildbettabgabe aus dem Epilimnion")
+        )),
+      sliderInput("volume",i18n$t("Auswahl Startvolumen"), min = 10, max = 100, value = 60),
+      sliderInput("begin", i18n$t("Beginn der Schichtung"), min = 60, max = 121, value = 91),
+      sliderInput("end", i18n$t("spätestes Schichtungsende"), min = 258, max = 335 , value = 305 ),
+      checkboxInput("cumulative", i18n$t("Zu- und Abfluss als Summen"), FALSE),
+      radioButtons("vol_level", i18n$t("Plot als:"),
+                   choiceValues = c("Volumen", "Stauspiegel"),
+                   choiceNames = c(i18n$t("Volumen"), i18n$t("Stauspiegel"))),
       hr(),
-      p("Epilimnion: warmes Oberflächenwasser"),
-      p("Hypolimnion: kaltes Tiefenwasser"),
-      p("Rohwasser: Entnahme für die Trinkwasserversorgung"),
-      p("Wildbett: Ablauf in den Fluss"),
-      downloadButton("download", "Ergebnisse als CSV-Datei speichern")
+      p(i18n$t("Epilimnion: warmes Oberflächenwasser")),
+      p(i18n$t("Hypolimnion: kaltes Tiefenwasser")),
+      p(i18n$t("Rohwasser: Entnahme für die Trinkwasserversorgung")),
+      p(i18n$t("Wildbett: Ablauf in den Fluss")),
+      downloadButton("download", i18n$t("Ergebnisse als CSV-Datei speichern"))
     ))
 
     output$Main <- renderUI(mainPanel(
@@ -84,7 +126,6 @@ observe({
       div(id="flows",plotOutput("plot_flows"))))
   }
 })
-
 
 
 
@@ -125,9 +166,9 @@ observe({
       out2 <- out
       out2[, "vol_E"] <- hyps$level(out[, "gesamt"] * 1e6) - hyps$level(out[, "vol_H"] * 1e6)
       out2[, "vol_H"] <- hyps$level(out[, "vol_H"] * 1e6)
-      plot_volumes(out2, ylab="Wasserstand über Grund (m)")
+      plot_volumes(out2, ylab=i18n$t("Wasserstand über Grund (m)"))
     } else {
-      plot_volumes(out)
+      plot_volumes(out, ylab=i18n$t("Volumen Grund (m)"))
     }
 
 
@@ -140,22 +181,25 @@ observe({
 
     if (input$cumulative) {
       discharge <- mutate(discharge, inflow=cumsum(inflow), outflow=cumsum(outflow), outflow_wb=cumsum(outflow_wb))
-      ylab1 <- "Zufluss (Mio m3)"
-      ylab2 <- "Rohwasser (Mio m3)"
-      ylab3 <- "Wildbett (Mio m3)"
+      ylab1 <- i18n$t("Zufluss (Mio m3)")
+      ylab2 <- i18n$t("Rohwasser (Mio m3)")
+      ylab3 <- i18n$t("Wildbett (Mio m3)")
 
     } else {
-      ylab1 <- "Zufluss (Mio m3/d)"
-      ylab2 <- "Rohwasser (Mio m3/d)"
-      ylab3 <- "Wildbett (Mio m3/d)"
+      ylab1 <- i18n$t("Zufluss (Mio m3/d)")
+      ylab2 <- i18n$t("Rohwasser (Mio m3/d)")
+      ylab3 <- i18n$t("Wildbett (Mio m3/d)")
 
     }
+
+    xlab1 <- i18n$t("Tag im Jahr")
+
     ggplot(discharge, aes(x = time, y = inflow )) + geom_line() +
-      ylab(ylab1) + xlab("Tag im Jahr") -> p1
+      ylab(ylab1) + xlab(xlab1) -> p1
     ggplot(discharge, aes(x = time, y = outflow)) + geom_line() +
-      ylab(ylab2) + xlab("Tag im Jahr") -> p2
+      ylab(ylab2) + xlab(i18n$t(xlab1)) -> p2
     ggplot(discharge, aes(x = time, y = outflow_wb)) + geom_line() +
-      ylab(ylab3) + xlab("Tag im Jahr") -> p3
+      ylab(ylab3) + xlab(i18n$t(xlab1)) -> p3
     ggarrange(p1, p2,p3, ncol=1)
 
   })
@@ -167,7 +211,7 @@ observe({
     },
     content = function(file) {
       dat <- run_scenario()
-      names(dat) <- c("times", "Epilimnion", "Hypolimnion", "gesamt")
+      names(dat) <- c("times", "Epilimnion", "Hypolimnion", i18n$t("gesamt"))
 
       write.csv(dat, file, quote = FALSE, row.names = FALSE)
     }

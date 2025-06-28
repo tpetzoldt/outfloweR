@@ -1,0 +1,137 @@
+{
+    "languages": ["meta", "de", "en"],
+    "translation": [
+        {
+            "meta": "Sprache",
+            "de": "Sprache",
+            "en": "Language"
+        },
+        {
+            "meta": "Talsperren-Volumenbilanz in 2 Schichten",
+            "de": "Talsperren-Volumenbilanz in 2 Schichten",
+            "en": "Reservoir Volume Balance in 2 Layers"
+        },
+        {   "meta": "Auswahl Zu- und Abflussmenge",
+            "de": "Auswahl Zu- und Abflussmenge",
+            "en": "Select inflow and outflow volume"
+          
+        },
+		{   "meta": "Normales Jahr",
+            "de": "Normales Jahr",
+            "en": "Normal Year"
+        },
+		{   "meta": "Nasses Jahr",
+            "de": "Nasses Jahr",
+            "en": "Wet year"
+        },
+		{   "meta": "Trockenes Jahr",
+            "de": "Trockenes Jahr",
+            "en": "Dry year"
+        },
+		{   "meta": "Sommerhochwasser (theoretisches Szenario)",
+            "de": "Sommerhochwasser (theoretisches Szenario)",
+            "en": "Summer flod (theoretical scenario)"
+        },
+		{   "meta": "Auswahl Managementstrategie",
+            "de": "Auswahl Managementstrategie",
+            "en": "Select management strategy"
+        },
+		{   "meta": "Standard",
+            "de": "Standard",
+            "en": "Standard"
+        },
+		{   "meta": "Zufluss ins Hypolimnion",
+            "de": "Zufluss ins Hypolimnion",
+            "en": "Cold inflow to hypolimnion"
+        },
+		{   "meta": "Wildbettabgabe aus dem Epilimnion",
+            "de": "Wildbettabgabe aus dem Epilimnion",
+            "en": "Environmental discharge from epilimnion"
+        },
+		{   "meta": "Auswahl Startvolumen",
+            "de": "Auswahl Startvolumen",
+            "en": "Select start volume"
+        },
+		{   "meta": "Beginn der Schichtung",
+            "de": "Beginn der Schichtung",
+            "en": "Start of stratification"
+        },
+		{   "meta": "spätestes Schichtungsende",
+            "de": "spätestes Schichtungsende",
+            "en": "Final end of stratification"
+        },
+		{   "meta": "Zu- und Abfluss als Summen",
+            "de": "Zu- und Abfluss als Summen",
+            "en": "Cumulative inflow and outflow"
+        },
+		{   "meta": "Plot als:",
+            "de": "Plot als:",
+            "en": "Plot as"
+        },
+		{   "meta": "Volumen",
+            "de": "Volumen",
+            "en": "Volume"
+        },
+		{   "meta":  "Stauspiegel",
+            "de":  "Stauspiegel",
+            "en": "Water level"
+        },
+		{   "meta": "Epilimnion: warmes Oberflächenwasser",
+            "de": "Epilimnion: warmes Oberflächenwasser",
+            "en": "Epilimnion: warm surface water"
+        },
+		{   "meta": "Hypolimnion: kaltes Tiefenwasser",
+            "de": "Hypolimnion: kaltes Tiefenwasser",
+            "en": "Hypolimnion: cold deepwater"
+        },
+		{   "meta": "Rohwasser: Entnahme für die Trinkwasserversorgung",
+            "de": "Rohwasser: Entnahme für die Trinkwasserversorgung",
+            "en": "Raw water for drinking water supply"
+        },
+		{   "meta": "Wildbett: Ablauf in den Fluss",
+            "de": "Wildbett: Ablauf in den Fluss",
+            "en": "Environmental discharge: to the river"
+        },
+		{   "meta": "Ergebnisse als CSV-Datei speichern",
+            "de": "Ergebnisse als CSV-Datei speichern",
+            "en": "Download to CSV file"
+        },
+		{   "meta": "Wasserstand über Grund (m)",
+            "de": "Wasserstand über Grund (m)",
+            "en": "Water level above ground"
+        },
+		{   "meta": "Zufluss (Mio m3)",
+            "de": "Zufluss (Mio m3)",
+            "en": "Inflow (Mio m3)"
+        },
+		{   "meta": "Rohwasser (Mio m3)",
+            "de": "Rohwasser (Mio m3)",
+            "en": "Raw water (min m3)"
+        },
+		{   "meta": "Wildbett (Mio m3)",
+            "de": "Wildbett (Mio m3)",
+            "en": "Environmental outflow (m3)"
+        },
+		{   "meta": "Zufluss (Mio m3/d)",
+            "de": "Zufluss (Mio m3/d)",
+            "en": "Inflow (Mio m3/d)"
+        },
+		{   "meta": "Rohwasser (Mio m3/d)",
+            "de": "Rohwasser (Mio m3/d)",
+            "en": "Raw water (min m3/d)"
+        },
+		{   "meta": "Wildbett (Mio m3/d)",
+            "de": "Wildbett (Mio m3/d)",
+            "en": "Environmental outflow (m3/d)"
+        },
+		{   "meta": "Tag im Jahr",
+            "de": "Tag im Jahr",
+            "en": "Day of the year"
+        },
+		{   "meta": "gesamt",
+            "de": "gesamt",
+            "en": "total"
+        }
+		
+    ]
+}
