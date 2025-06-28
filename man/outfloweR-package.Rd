@@ -15,9 +15,8 @@ It uses a simple mass-balance approach and provides a shiny-app.
 \references{
 ATT-Schriftenreihe Bd. 7: Integrale Bewirtschaftung von Trinkwassertalsperren
 gemäß DIN 19700. Siegburg, 2009.
-#'
 }
 \author{
-Thomas Petzoldt, Lukas Gunzelmann
+Thomas Petzoldt, LuGu
 }
 \keyword{package}

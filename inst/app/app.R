@@ -20,8 +20,7 @@ if (!dir.exists(i18n_json_path)) {
   message("i18n translation directory found at: ", i18n_json_path)
 }
 
-#i18n <- shiny.i18n::Translator$new(translation_json_path = paste0(i18n_json_path, "/", "i18n.json"))
-i18n <- shiny.i18n::Translator$new(json_file = paste0(i18n_json_path, "/", "i18n.json"))
+i18n <- shiny.i18n::Translator$new(translation_json_path = paste0(i18n_json_path, "/", "i18n.json"))
 i18n$set_translation_language("en")
 
 ## helper functions
@@ -34,22 +33,25 @@ translate_choices <- function(choices, keys) {
 # Define UI for application
 ui <- fluidPage(
 
-
   uiOutput("title"),
-  sidebarLayout( uiOutput("sidebar"),
-                 uiOutput("Main")),
 
   ## tp: select language
   shiny.i18n::usei18n(i18n),
   tags$div(
-    style='float: right;color: white; font-family: OpenSans;',
+    style='float: right;color: white; font-family: Open Sans;',
     selectInput(
-      inputId='selected_language',
-      label=i18n$t("Sprache"),
-      choices = c("de", "en"),
+      inputId = "selected_language",
+      label = i18n$t("Sprache"),
+      choices = setNames(
+        c("en", "de"),
+        c("🇬🇧 - en", "🇩🇪 - de")
+      ),
       selected = i18n$get_key_translation()
     )
-  )
+  ),
+  sidebarLayout(uiOutput("sidebar"),
+                uiOutput("Main")
+                )
 )
 
 server <- function(input, output,session) {

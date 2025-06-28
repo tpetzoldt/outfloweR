@@ -4,10 +4,27 @@
 \alias{plot_flows}
 \title{plot_flows}
 \usage{
-plot_flows(discharge)
+plot_flows(
+  discharge,
+  xlab = "Tag im Jahr",
+  ylab_inflow = "Zufluss (m3/d)",
+  ylab_outflow = "Rohwasserabgabe (m3/d)",
+  ylab_wildbed = "Wildbettabgabe (m3/d)"
+)
 }
 \arguments{
-\item{discharge}{discharge data frame}
+\item{discharge}{A data frame containing discharge data (must have `time`, `inflow`, `outflow`, `outflow_wb` columns).}
+
+\item{xlab}{Label for the x-axis for all plots.}
+
+\item{ylab_inflow}{Label for the y-axis of the inflow plot.}
+
+\item{ylab_outflow}{Label for the y-axis of the raw water outflow plot.}
+
+\item{ylab_wildbed}{Label for the y-axis of the wild bed outflow plot.}
+}
+\value{
+A combined ggplot object using `ggpubr::ggarrange`.
 }
 \description{
 plot_flows

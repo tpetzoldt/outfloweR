@@ -4,12 +4,27 @@
 \alias{plot_volumes}
 \title{plot_volumes}
 \usage{
-plot_volumes(out, ylab = "Volumen (Mio m3)")
+plot_volumes(
+  out,
+  xlab = "Tag im Jahr",
+  ylab = "Volumen (Mio m3)",
+  legend_title = "Teilraum",
+  legend_labels = c("Epilimnion", "Hypolimnion")
+)
 }
 \arguments{
-\item{out}{output from `ode` (deSolve Object)}
+\item{out}{output from `ode` (deSolve Object).}
 
-\item{ylab}{label at the y axis}
+\item{xlab}{Label for the x-axis.}
+
+\item{ylab}{Label for the y-axis.}
+
+\item{legend_title}{Title for the legend.}
+
+\item{legend_labels}{Labels for the legend entries (corresponding to Epilimnion and Hypolimnion).}
+}
+\value{
+A ggplot object.
 }
 \description{
 plot_volumes
