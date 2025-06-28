@@ -157,7 +157,6 @@ observe({
 })
 
 
-
   observe({
     query <- parseQueryString(session$clientData$url_search)
     if (!is.null(query[['discharge']])) {
@@ -276,7 +275,8 @@ observe({
     },
     content = function(file) {
       dat <- run_scenario()
-      names(dat) <- c("times", "Epilimnion", "Hypolimnion", i18n$t("gesamt"))
+      dat <- as.data.frame(dat)
+      names(dat) <- c("times", "Epilimnion", "Hypolimnion","total_vol")
 
       write.csv(dat, file, quote = FALSE, row.names = FALSE)
     }
