@@ -33,7 +33,8 @@ translate_choices <- function(choices, keys) {
 # Define UI for application
 ui <- fluidPage(
 
-  uiOutput("title"),
+  if(dir.exists("www")) includeHTML("www/header_ihb_en.html"),
+
 
   ## tp: select language
   shiny.i18n::usei18n(i18n),
@@ -49,9 +50,10 @@ ui <- fluidPage(
       selected = i18n$get_key_translation()
     )
   ),
+  uiOutput("title"),
   sidebarLayout(uiOutput("sidebar"),
-                uiOutput("Main")
-                )
+                uiOutput("Main")),
+  if(dir.exists("www")) includeHTML("www/footer_en.html")
 )
 
 server <- function(input, output,session) {

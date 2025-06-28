@@ -110,7 +110,7 @@
         },
         {   "meta": "Wildbett (Mio m3)",
             "de": "Wildbett (Mio m3)",
-            "en": "Environmental outflow (m3)"
+            "en": "Environ. outflow (m3)"
         },
         {   "meta": "Zufluss (Mio m3/d)",
             "de": "Zufluss (Mio m3/d)",
@@ -122,7 +122,7 @@
         },
         {   "meta": "Wildbett (Mio m3/d)",
             "de": "Wildbett (Mio m3/d)",
-            "en": "Environmental outflow (m3/d)"
+            "en": "Environ. outflow (m3/d)"
         },
         {   "meta": "Tag im Jahr",
             "de": "Tag im Jahr",
