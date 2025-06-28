@@ -96,12 +96,14 @@ observe({
         "discharge_normal",
         "discharge_wet",
         "discharge_dry",
+        "discharge_constant",
         "discharge_summerflood"
       ),
       keys = c(
         "Normales Jahr",
         "Nasses Jahr",
         "Trockenes Jahr",
+        "Konstante Zu- und Abflüsse",
         "Sommerhochwasser (theoretisches Szenario)"
       )
     )
@@ -112,6 +114,16 @@ observe({
         i18n$t("Auswahl Zu- und Abflussmenge"),
         choices = translated_choices
       ),
+
+       conditionalPanel(
+         condition = "input.discharge == 'discharge_constant'",
+         fluidRow(
+           numericInput("const_inflow", i18n$t("Zufluss (Mio m3/d)"), min=0, value=0.2, max=1, width=60),
+           numericInput("const_outflow", i18n$t("Rohwasser (Mio m3/d)"), min=0, value=0.1, max=.2, width=60),
+           numericInput("const_outflow_wb", i18n$t("Wildbett (Mio m3/d)"), min=0, value=0.1, max=0.6, width=60)
+         )
+      ),
+
       selectInput(
         "withdrawal",
         i18n$t("Auswahl Managementstrategie"),
@@ -162,8 +174,21 @@ observe({
   })
 
   run_scenario <- reactive({
-    data(list = input$discharge, envir = environment())
-    discharge <- get(input$discharge)
+
+    if (input$discharge == "discharge_constant") {
+      discharge <- data.frame(
+        time = 1:365,
+        inflow = rep(input$const_inflow, 365),
+        outflow = rep(input$const_outflow, 365),
+        outflow_wb = rep(input$const_outflow_wb, 365)
+      )
+    } else {
+      data(list = input$discharge, envir = environment())
+      discharge <- get(input$discharge)
+    }
+
+    #print(str(discharge))
+
     scenario(option = input$withdrawal,
              vol = input$volume,
              t_strat = input$begin,
@@ -204,8 +229,20 @@ observe({
 
     i18n$set_translation_language(input$selected_language)
 
-    data(list = input$discharge, envir = environment())
-    discharge <- get(input$discharge)
+    if (input$discharge == "discharge_constant") {
+      print(input$const_inflow)
+      discharge <- data.frame(
+        time = 1:365,
+        inflow = rep(input$const_inflow, 365),
+        outflow = rep(input$const_outflow, 365),
+        outflow_wb = rep(input$const_outflow_wb, 365)
+      )
+    } else {
+      data(list = input$discharge, envir = environment())
+      discharge <- get(input$discharge)
+    }
+
+    print(str(discharge))
 
     if (input$cumulative) {
       discharge <- mutate(discharge, inflow=cumsum(inflow), outflow=cumsum(outflow), outflow_wb=cumsum(outflow_wb))

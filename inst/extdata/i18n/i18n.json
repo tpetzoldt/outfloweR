@@ -132,13 +132,17 @@
             "de": "gesamt",
             "en": "total"
         },
-    {   "meta": "Teilraum",
+        {   "meta": "Teilraum",
             "de": "Teilraum",
             "en": "Layer"
         },
-    {   "meta": "Volumen (Mio m3)",
+        {   "meta": "Volumen (Mio m3)",
             "de": "Volumen (Mio m3)",
             "en": "Volume (Mio m3)"
+        },
+        {   "meta": "Konstante Zu- und Abflüsse",
+            "de": "Konstante Zu- und Abflüsse",
+            "en": "constant in- and outflows"
         }
 
     ]
