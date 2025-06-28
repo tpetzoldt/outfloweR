@@ -17,3 +17,4 @@ Suggests: knitr, rmarkdown
 License: GPL (>= 2)
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
+URL: https://tpetzoldt.github.io/outfloweR/
