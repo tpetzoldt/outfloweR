@@ -20,6 +20,11 @@ plot_volumes <- function(out,
   out <- as.data.frame(out)
   names(out) <- c("times", "Epilimnion", "Hypolimnion", "gesamt")
 
+  ## improve this by implementing safeguards in the ode model
+  out$Epilimnion <- with(out, ifelse(Epilimnion < 0, 0, Epilimnion))
+  out$Hypolimnion <- with(out, ifelse(Hypolimnion < 0, 0, Hypolimnion))
+  out$gesamt <- with(out, ifelse(gesamt < 0, 0, gesamt))
+
   out |>
     tidyr::pivot_longer(!times, names_to = "Teilraum", values_to = "Volumen" ) |>
     dplyr::mutate(
