@@ -24,4 +24,5 @@
 #' @import graphics stats utils deSolve ggplot2
 #' @importFrom rlang .data
 #' @importFrom shinyjs show removeClass
+#' @importFrom shiny.i18n Translator set_translation_language
 NULL

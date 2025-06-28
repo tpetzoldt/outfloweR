@@ -28,7 +28,7 @@ ui <- fluidPage(
   sidebarLayout( uiOutput("sidebar"),
                  uiOutput("Main")),
 
-  ## tp: the following is not used yet
+  ## tp: select language
   shiny.i18n::usei18n(i18n),
   tags$div(
     style='float: right;color: white; font-family: OpenSans;',
@@ -160,15 +160,26 @@ observe({
   output$plot_model <- renderPlot({
     out <- run_scenario()
 
+    i18n$set_translation_language(input$selected_language)
+
     if(input$vol_level == "Stauspiegel") {
       data(hypso)
       hyps <- hypso_functions(hypso)
       out2 <- out
       out2[, "vol_E"] <- hyps$level(out[, "gesamt"] * 1e6) - hyps$level(out[, "vol_H"] * 1e6)
       out2[, "vol_H"] <- hyps$level(out[, "vol_H"] * 1e6)
-      plot_volumes(out2, ylab=i18n$t("Wasserstand über Grund (m)"))
+      plot_volumes(out2,
+                   xlab = i18n$t("Tag im Jahr"),
+                   ylab = i18n$t("Wasserstand über Grund (m)"),
+                   legend_title = i18n$t("Teilraum")#,
+                   #translated_legend = c("Epilimnion", "Hypolimnion") # redundant
+                   )
     } else {
-      plot_volumes(out, ylab=i18n$t("Volumen Grund (m)"))
+      plot_volumes(out,
+                   xlab = i18n$t("Tag im Jahr"),
+                   ylab = i18n$t("Volumen (Mio m3)"),
+                   legend_title = i18n$t("Teilraum")#,
+                   )
     }
 
 
@@ -176,6 +187,9 @@ observe({
 
 
   output$plot_flows <- renderPlot ({
+
+    i18n$set_translation_language(input$selected_language)
+
     data(list = input$discharge, envir = environment())
     discharge <- get(input$discharge)
 
