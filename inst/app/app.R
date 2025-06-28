@@ -164,9 +164,13 @@ observe({
   run_scenario <- reactive({
     data(list = input$discharge, envir = environment())
     discharge <- get(input$discharge)
-    scenario(option = input$withdrawal, vol = input$volume,
-             t_strat = input$begin, t_autumn = input$end,
-             discharge$inflow, discharge$outflow, discharge$outflow_wb
+    scenario(option = input$withdrawal,
+             vol = input$volume,
+             t_strat = input$begin,
+             t_autumn = input$end,
+             discharge$inflow,
+             discharge$outflow,
+             discharge$outflow_wb
              )
   })
 
@@ -193,8 +197,6 @@ observe({
                    ylab = i18n$t("Volumen (Mio m3)"),
                    legend_title = i18n$t("Teilraum"))
     }
-
-
   })
 
 

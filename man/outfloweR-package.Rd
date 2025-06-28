@@ -2,12 +2,10 @@
 % Please edit documentation in R/outflower-package.R
 \docType{package}
 \name{outfloweR-package}
-\alias{outfloweR-package}
 \alias{outfloweR}
-\title{\packageTitle{outfloweR}}
+\alias{outfloweR-package}
+\title{Simulation of Reservoir Mass Balance}
 \description{
-\packageDescription{outfloweR}
-
 The package aims to demonstrate reservoir management options by abstracting
 water either from the bottom outlet or the surface layer (the epilimnion).
 It uses a simple mass-balance approach and provides a shiny-app.

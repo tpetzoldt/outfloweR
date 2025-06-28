@@ -12,9 +12,9 @@ Hypsographic Table of a Lake with Conical Morphometry
 }
 \examples{
 
+zmax   <- 20                            # maximum depth (m)
 area   <- function(Amax, zmax, z){Amax * (1 - (z)/zmax)^2}
 volume <- function(Amax, zmax, z){Amax * zmax/3 * (1 - z/zmax)^3}
-zmax   <- zmax                          # maximum depth (m)
 Amax   <- 12.07 * 1000 * 1000           # total Area (m^2)
 depth  <- seq(zmax, 0, -.1)             # depth (m)
 
