@@ -118,9 +118,12 @@ observe({
        conditionalPanel(
          condition = "input.discharge == 'discharge_constant'",
          fluidRow(
-           numericInput("const_inflow", i18n$t("Zufluss (Mio m3/d)"), min=0, value=0.2, max=1, width=60),
-           numericInput("const_outflow", i18n$t("Rohwasser (Mio m3/d)"), min=0, value=0.1, max=.2, width=60),
-           numericInput("const_outflow_wb", i18n$t("Wildbett (Mio m3/d)"), min=0, value=0.1, max=0.6, width=60)
+           div(style = "display: inline-block; width: 30%;",
+           numericInput("const_inflow", i18n$t("Zufluss (Mio m3/d)"), min=0, step=0.01, value=0.2, max=1)),
+           div(style = "display: inline-block; width: 30%;",
+           numericInput("const_outflow", i18n$t("Rohwasser (Mio m3/d)"), min=0, step=0.01, value=0.1, max=.2)),
+           div(style = "display: inline-block; width: 30%;",
+           numericInput("const_outflow_wb", i18n$t("Wildbett (Mio m3/d)"), min=0, step=0.01, value=0.1, max=0.8))
          )
       ),
 
@@ -187,8 +190,6 @@ observe({
       discharge <- get(input$discharge)
     }
 
-    #print(str(discharge))
-
     scenario(option = input$withdrawal,
              vol = input$volume,
              t_strat = input$begin,
@@ -241,8 +242,6 @@ observe({
       data(list = input$discharge, envir = environment())
       discharge <- get(input$discharge)
     }
-
-    print(str(discharge))
 
     if (input$cumulative) {
       discharge <- mutate(discharge, inflow=cumsum(inflow), outflow=cumsum(outflow), outflow_wb=cumsum(outflow_wb))
