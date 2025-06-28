@@ -10,19 +10,20 @@
 #' @name outfloweR-package
 #' @aliases outfloweR outfloweR-package
 #' @docType package
-#' @author Thomas Petzoldt, Lukas Gunzelmann
+#' @author Thomas Petzoldt, LuGu
 #'
 #'
 #' @references
 #'
 #' ATT-Schriftenreihe Bd. 7: Integrale Bewirtschaftung von Trinkwassertalsperren
 #' gemäß DIN 19700. Siegburg, 2009.
-#'#'
+#'
 #'
 #' @keywords package
 #'
 #' @import graphics stats utils deSolve ggplot2
 #' @importFrom rlang .data
+#' @importFrom dplyr filter
 #' @importFrom shinyjs show removeClass
-#' @importFrom shiny.i18n Translator set_translation_language
+#' @import shiny.i18n
 NULL

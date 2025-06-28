@@ -10,7 +10,18 @@ library(shinyjs, mask.ok=TRUE)
 library(purrr)
 
 library(shiny.i18n)
-i18n <- Translator$new(translation_json_path = "./lang_data/translation.json")
+
+i18n_json_path <- system.file("extdata", "i18n", package = "outfloweR")
+
+# Check if the path exists (for debugging)
+if (!dir.exists(i18n_json_path)) {
+  stop("i18n translation directory not found at: ", i18n_json_path)
+} else {
+  message("i18n translation directory found at: ", i18n_json_path)
+}
+
+#i18n <- shiny.i18n::Translator$new(translation_json_path = paste0(i18n_json_path, "/", "i18n.json"))
+i18n <- shiny.i18n::Translator$new(json_file = paste0(i18n_json_path, "/", "i18n.json"))
 i18n$set_translation_language("en")
 
 ## helper functions
