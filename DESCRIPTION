@@ -12,7 +12,7 @@ Maintainer: Thomas Petzoldt <thomas.petzoldt@tu-dresden.de>
 Description: A demonstration of reservoir level and stratification management,
   based on simple mass balances.
 Depends: R (>= 4.1.0), deSolve, ggplot2
-Imports: stats, graphics, utils, shiny, dplyr, tidyr, ggpubr, shinyjs, rlang
+Imports: stats, graphics, utils, shiny, dplyr, tidyr, ggpubr, shinyjs, rlang, purr, shiny.i18n
 Suggests: knitr, rmarkdown
 License: GPL (>= 2)
 VignetteBuilder: knitr
