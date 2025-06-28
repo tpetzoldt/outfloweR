@@ -191,8 +191,7 @@ observe({
       plot_volumes(out,
                    xlab = i18n$t("Tag im Jahr"),
                    ylab = i18n$t("Volumen (Mio m3)"),
-                   legend_title = i18n$t("Teilraum")#,
-                   )
+                   legend_title = i18n$t("Teilraum"))
     }
 
 
