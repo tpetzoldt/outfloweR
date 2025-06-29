@@ -17,7 +17,12 @@ library("dplyr")
 set.seed(1234)
 ```
 
+Preface
+=======
 
+This exercise depends on a so-called shiny-app that is currently found on:
+
+[https://weblab.hydro.tu-dresden.de/app/outflower/](https://weblab.hydro.tu-dresden.de/app/outflower/)
 
 Introduction
 ============
