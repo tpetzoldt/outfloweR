@@ -8,6 +8,7 @@ library(ggpubr)
 library(outfloweR)
 library(shinyjs, mask.ok=TRUE)
 library(purrr)
+library(plotly)
 
 library(shiny.i18n)
 
@@ -137,7 +138,7 @@ observe({
           c("standard", "cold_inflow", "wb_top"),
           c("Standard", "Zufluss ins Hypolimnion", "Wildbettabgabe aus dem Epilimnion")
         )),
-      sliderInput("volume",i18n$t("Auswahl Startvolumen"), min = 10, max = 65, value = 60),
+      sliderInput("volume",i18n$t("Auswahl Startvolumen"), min = 10, max = 70, value = 60),
       sliderInput("begin", i18n$t("Beginn der Schichtung"), min = 60, max = 125, value = 91),
       sliderInput("end", i18n$t("spätestes Schichtungsende"), min = 258, max = 335 , value = 305 ),
       checkboxInput("cumulative", i18n$t("Zu- und Abfluss als Summen"), FALSE),
@@ -234,7 +235,6 @@ observe({
     i18n$set_translation_language(input$selected_language)
 
     if (input$discharge == "discharge_constant") {
-      print(input$const_inflow)
       discharge <- data.frame(
         time = 1:365,
         inflow = rep(input$const_inflow, 365),
@@ -292,7 +292,21 @@ observe({
     content = function(file) {
       dat <- run_scenario()
       dat <- as.data.frame(dat)
-      names(dat) <- c("times", "Epilimnion", "Hypolimnion","total_vol")
+      names(dat) <- c("times", "epilimnion", "hypolimnion","total_vol")
+
+      if (input$discharge == "discharge_constant") {
+        discharge <- data.frame(
+          time = 1:365,
+          inflow = rep(input$const_inflow, 365),
+          outflow = rep(input$const_outflow, 365),
+          outflow_wb = rep(input$const_outflow_wb, 365)
+        )
+      } else {
+        data(list = input$discharge, envir = environment())
+        discharge <- get(input$discharge)
+      }
+
+      dat <- cbind(dat, discharge[, 2:4])
 
       write.csv(dat, file, quote = FALSE, row.names = FALSE)
     }

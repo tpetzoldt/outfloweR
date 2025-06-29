@@ -4,7 +4,7 @@
 \alias{volume_model}
 \title{volume_model}
 \usage{
-volume_model(time, y, parms, inflows)
+volume_model(time, y, parms, inflows, ...)
 }
 \arguments{
 \item{time}{numeric}
@@ -14,6 +14,8 @@ volume_model(time, y, parms, inflows)
 \item{parms}{numeric}
 
 \item{inflows}{list}
+
+\item{...}{not used}
 }
 \description{
 volume_model

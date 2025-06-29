@@ -14,6 +14,13 @@ It uses a simple mass-balance approach and provides a shiny-app.
 ATT-Schriftenreihe Bd. 7: Integrale Bewirtschaftung von Trinkwassertalsperren
 gemäß DIN 19700. Siegburg, 2009.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://tpetzoldt.github.io/outfloweR/}
+}
+
+}
 \author{
 Thomas Petzoldt, LuGu
 }

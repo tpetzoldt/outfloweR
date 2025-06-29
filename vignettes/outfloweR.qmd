@@ -2,11 +2,11 @@
 title: "Reservoir Mass Balance Simulation with Package `outfloweR`"
 author: "Thomas Petzoldt"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
 bibliography: bib.bib
 vignette: >
   %\VignetteIndexEntry{Reservoir Mass Balance Simulation with Package `outfloweR`}
-  %\VignetteEngine{knitr::rmarkdown}
+   %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
 ---
 <!-- avoid border around images -->
 <style>img {border: 0;}</style>
