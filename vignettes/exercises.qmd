@@ -1,6 +1,5 @@
 ---
-title: "Reservoir Mass Balance Simulation with Package `outfloweR`"
-subtitle: "Exercises"
+title: "`outfloweR`-Exercises"
 author: "Thomas Petzoldt"
 date: "`r Sys.Date()`"
 bibliography: bib.bib
