@@ -2,7 +2,7 @@ Encoding: UTF-8
 Package: outfloweR
 Type: Package
 Title: Simulation of Reservoir Mass Balance
-Version: 0.4-0
+Version: 0.4-1
 Date: 2025-06-28
 Authors@R: c(person("Thomas","Petzoldt", role = c("aut", "cre"),
                      email = "thomas.petzoldt@tu-dresden.de",
@@ -13,7 +13,7 @@ Description: A demonstration of reservoir level and stratification management,
   based on simple mass balances.
 Depends: R (>= 4.1.0), deSolve, ggplot2
 Imports: stats, graphics, utils, shiny, dplyr, tidyr, ggpubr, shinyjs, rlang, purrr, shiny.i18n
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, quarto
 License: GPL (>= 2)
 VignetteBuilder: quarto
 RoxygenNote: 7.3.2
