@@ -9,7 +9,7 @@ balances.
 It contains also functions to deal with bathymeric (alias hypsographic)
 functions and a shiny app for demonstration purposes.
 
-The tool is intended to demonstrate the basic principles, whereas
+The tool is intended to **demonstrate** the basic principles, whereas
 for real cases a hydrodynamic model may be used, e.g. 
 [aemon-j/LakeEnsemblR](https://github.com/aemon-j/LakeEnsemblR).
 
@@ -18,8 +18,9 @@ for real cases a hydrodynamic model may be used, e.g.
 ```r
 remotes::install_github("tpetzoldt/outfloweR")
 ```
-## Source code
 
-https://github.com/tpetzoldt/outfloweR
+## Links
 
+* Source code https://github.com/tpetzoldt/outfloweR
+* Documentation https://tpetzoldt.github.io/outfloweR/
 
