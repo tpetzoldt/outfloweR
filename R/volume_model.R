@@ -4,10 +4,11 @@
 #' @param y numeric
 #' @param parms numeric
 #' @param inflows list
+#' @param ... not used
 #'
 #' @export
 #'
-volume_model <- function(time, y, parms, inflows){
+volume_model <- function(time, y, parms, inflows, ...){
   with(as.list(c(y, parms)), {
 
     d_vol_E <- inflows$f_in_E(time) - inflows$f_out_E(time) - inflows$f_wb_E(time)

@@ -9,7 +9,7 @@
 #'
 stratification_event <- function(time, y, parms, inflows){
   with(as.list(c(y, parms)), {
-    if (time < t_autumn) {
+    if ((time < t_autumn) & (vol_E > vol_E_min)) {
       #cat("summer", time, "\n")
       vol <- vol_E + vol_H
       vol_H <- vol * (1 - frac_epi)

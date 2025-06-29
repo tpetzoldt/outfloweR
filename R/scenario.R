@@ -34,13 +34,27 @@ scenario <- function(option = c("standard", "cold_inflow", "wb_top"),
                 out_H_wb = mean(outflow_wb),
                 t_strat = t_strat,
                 t_autumn = t_autumn,
-                frac_epi = 0.25
+                frac_epi = 0.25,
+                vol_E_min = 1.0    # destratify if volume of Epi is to small
   )
 
   init <- c(vol_E = vol, vol_H = 0) # Mio m3
 
 
-  event_times <- parms[c("t_strat", "t_autumn")]
-  ode(init, times, volume_model, parms, method = "adams", inflows = inflows,
-      events = list(func = stratification_event, time = event_times))
+
+
+  rootfun <- function (t, y, parms, ...) {
+    event_times <- unlist(parms[c("t_strat", "t_autumn")])
+    vol_E_min <- unlist(parms["vol_E_min"])
+    return(c(y[1] - vol_E_min, event_times - t))
+  }
+
+
+  #ode(init, times, volume_model, parms, method = "adams", inflows = inflows,
+  #    events = list(func = stratification_event, time = event_times))
+
+  ode(init, times, volume_model, parms, method = "adams",
+      inflows = inflows, #event_times = event_times,
+      rootfun = rootfun,
+      events = list(func = stratification_event, root = TRUE))
 }

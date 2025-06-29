@@ -69,7 +69,7 @@ observe({
       output$sidebar <- renderUI(sidebarPanel())
       output$Main <- renderUI(mainPanel(
         div(id = "volumes", plotOutput("plot_model")),
-        div(id="flows",plotOutput("plot_flows"))))
+        div(id="flows",plotlyOutput("plot_flows"))))
     }
     if (query[['ui']] == "volume") {
       output$title <- renderUI(
@@ -83,7 +83,7 @@ observe({
         titlePanel(i18n$t("Talsperren-Volumenbilanz in 2 Schichten")))
       output$sidebar <- renderUI()
       output$Main <- renderUI(mainPanel(
-        div(id = "flows", plotOutput("plot_flows"))))
+        div(id = "flows", plotlyOutput("plot_flows"))))
     }
   }
   else {
@@ -137,8 +137,8 @@ observe({
           c("standard", "cold_inflow", "wb_top"),
           c("Standard", "Zufluss ins Hypolimnion", "Wildbettabgabe aus dem Epilimnion")
         )),
-      sliderInput("volume",i18n$t("Auswahl Startvolumen"), min = 10, max = 100, value = 60),
-      sliderInput("begin", i18n$t("Beginn der Schichtung"), min = 60, max = 121, value = 91),
+      sliderInput("volume",i18n$t("Auswahl Startvolumen"), min = 10, max = 65, value = 60),
+      sliderInput("begin", i18n$t("Beginn der Schichtung"), min = 60, max = 125, value = 91),
       sliderInput("end", i18n$t("spätestes Schichtungsende"), min = 258, max = 335 , value = 305 ),
       checkboxInput("cumulative", i18n$t("Zu- und Abfluss als Summen"), FALSE),
       radioButtons("vol_level", i18n$t("Plot als:"),
@@ -154,7 +154,7 @@ observe({
 
     output$Main <- renderUI(mainPanel(
       div(id = "volumes", plotOutput("plot_model")),
-      div(id="flows",plotOutput("plot_flows"))))
+      div(id="flows",plotlyOutput("plot_flows"))))
   }
 })
 
@@ -213,22 +213,23 @@ observe({
       out2 <- out
       out2[, "vol_E"] <- hyps$level(out[, "gesamt"] * 1e6) - hyps$level(out[, "vol_H"] * 1e6)
       out2[, "vol_H"] <- hyps$level(out[, "vol_H"] * 1e6)
-      plot_volumes(out2,
+      p <- plot_volumes(out2,
                    xlab = i18n$t("Tag im Jahr"),
                    ylab = i18n$t("Wasserstand über Grund (m)"),
                    legend_title = i18n$t("Teilraum")#,
                    #translated_legend = c("Epilimnion", "Hypolimnion") # redundant
                    )
     } else {
-      plot_volumes(out,
+      p <- plot_volumes(out,
                    xlab = i18n$t("Tag im Jahr"),
                    ylab = i18n$t("Volumen (Mio m3)"),
                    legend_title = i18n$t("Teilraum"))
     }
+    p + scale_x_continuous(breaks=seq(0, 360, 10))
   })
 
 
-  output$plot_flows <- renderPlot ({
+  output$plot_flows <- renderPlotly({
 
     i18n$set_translation_language(input$selected_language)
 
@@ -260,14 +261,27 @@ observe({
 
     xlab1 <- i18n$t("Tag im Jahr")
 
-    ggplot(discharge, aes(x = time, y = inflow )) + geom_line() +
-      ylab(ylab1) + xlab(xlab1) -> p1
-    ggplot(discharge, aes(x = time, y = outflow)) + geom_line() +
-      ylab(ylab2) + xlab(i18n$t(xlab1)) -> p2
-    ggplot(discharge, aes(x = time, y = outflow_wb)) + geom_line() +
-      ylab(ylab3) + xlab(i18n$t(xlab1)) -> p3
-    ggarrange(p1, p2,p3, ncol=1)
+    p1 <- ggplot(discharge, aes(x = time, y = inflow )) + geom_line() +
+      ylab(ylab1) + xlab(xlab1)
+    p2 <- ggplot(discharge, aes(x = time, y = outflow)) + geom_line() +
+      ylab(ylab2) + xlab(i18n$t(xlab1))
+    p3 <- ggplot(discharge, aes(x = time, y = outflow_wb)) + geom_line() +
+      ylab(ylab3) + xlab(i18n$t(xlab1)) + scale_x_continuous(breaks=seq(0, 360, 10))
 
+    ## convert to plotly objects
+    p1_plotly <- ggplotly(p1)
+    p2_plotly <- ggplotly(p2)
+    p3_plotly <- ggplotly(p3)
+
+    # Combine the individual plotly objects using subplot()
+    combined_plot <- subplot(p1_plotly, p2_plotly, p3_plotly,
+            nrows = 3,
+            shareX = TRUE,
+            heights = c(1/3, 1/3, 1/3), # set relative heights
+            margin = 0.05 # add a small margin between plots
+    ) #|> layout(title = "Inputs")
+
+    combined_plot
   })
 
 
