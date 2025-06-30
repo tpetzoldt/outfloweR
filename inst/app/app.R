@@ -145,12 +145,14 @@ observe({
       radioButtons("vol_level", i18n$t("Plot als:"),
                    choiceValues = c("Volumen", "Stauspiegel"),
                    choiceNames = c(i18n$t("Volumen"), i18n$t("Stauspiegel"))),
+      downloadButton("download", i18n$t("Ergebnisse als CSV-Datei speichern")),
       hr(),
       p(i18n$t("Epilimnion: warmes Oberflächenwasser")),
       p(i18n$t("Hypolimnion: kaltes Tiefenwasser")),
       p(i18n$t("Rohwasser: Entnahme für die Trinkwasserversorgung")),
       p(i18n$t("Wildbett: Ablauf in den Fluss")),
-      downloadButton("download", i18n$t("Ergebnisse als CSV-Datei speichern"))
+      p("Source code and documentation:", a(href = "https://tpetzoldt.github.io/outfloweR/", "https://tpetzoldt.github.io/outfloweR"))
+      #p('Source code and documentation ', a(href = 'https://tpetzoldt.github.io/outfloweR/', .noWS = "outside"))
     ))
 
     output$Main <- renderUI(mainPanel(
